@@ -10,15 +10,25 @@ using UnityEngine;
 public class PlayerSort : MonoBehaviour
 {
     Rigidbody2D rgdy;
-
+    GameObject BtnManager;
     void Start()
     {
         rgdy = GetComponent<Rigidbody2D>();
+        BtnManager = GameObject.Find("BtnManager");
     }
     private void OnCollisionEnter2D(Collision2D col)
     {
         rgdy.gravityScale = 0;
-        transform.position = new Vector3(transform.position.x, Mathf.Ceil(transform.position.y) - 0.5f, transform.position.z);
+        transform.position = new Vector3(Mathf.Ceil(transform.position.x) - 0.5f,
+            Mathf.Ceil(transform.position.y) - 0.5f, transform.position.z);
+        if(Physics2D.gravity.x!=0)
+        {
+            BtnManager.GetComponent<BtnManager>().UpDownOnBtn();
+        }
+        else if(Physics2D.gravity.y!=0)
+        {
+            BtnManager.GetComponent<BtnManager>().LeftRightOnBtn();
+        }
     }
     void Update()
     {

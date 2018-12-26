@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2e94e0873d7571b488b4538ec6a6e1ca
+guid: 32f3c879be0ad8d46bfb572f28e58773
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -8,9 +8,9 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: 6809 Chargen
+  fontName: 8BIT WONDER
   fontNames:
-  - 6809 Chargen
+  - 8BIT WONDER
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

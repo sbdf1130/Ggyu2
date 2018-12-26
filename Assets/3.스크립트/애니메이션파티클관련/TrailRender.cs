@@ -20,7 +20,7 @@ public class TrailRender : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((int)PlayerR.velocity.y != 0) // 중력 작용될때
+        if ((int)PlayerR.velocity.y != 0 || (int)PlayerR.velocity.x != 0) // 중력 작용될때
         {
             if (timeBtwSpawns <= 0) // 음수라면 startTime값으로 대입되어지고 트레일 생성
             {

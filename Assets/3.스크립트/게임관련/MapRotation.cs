@@ -13,8 +13,11 @@ public class MapRotation : MonoBehaviour
     bool isCube; // 맵 큐브가 회전할 때 입력을 못받게 하기위한 변수
     float cool; // 연속으로 입력받지 못하게 쿨타임 변수
 
+    int dir;
+
     void Start()
     {
+        dir = 0;
         PlayerR = Player.GetComponent<Rigidbody2D>();
         isPlayer = true;
         isCube = true;
@@ -23,35 +26,62 @@ public class MapRotation : MonoBehaviour
 
     void FixedUpdate()
     {
-        if ((int)PlayerR.velocity.y != 0)
+        if ((int)PlayerR.velocity.y != 0 && (int)PlayerR.velocity.x != 0)
         {
             isPlayer = false;
             cool = 0;
         }
         else
             isPlayer = true;
+
         if (cool < 0.4)
             cool += Time.deltaTime;
+
+
+        if(dir == 0)
+        {
+            Physics2D.gravity = new Vector2(0f, -20f);
+            Debug.Log("하");
+        }
+        else if(dir ==1)
+        {
+            Physics2D.gravity = new Vector2(20f, 0f);
+            Debug.Log("우");
+        }
+        else if(dir ==2)
+        {
+            Physics2D.gravity = new Vector2(0f, 20f);
+            Debug.Log("상");
+        }
+        else if(dir ==3)
+        {
+            Physics2D.gravity = new Vector2(-20f, 0f);
+            Debug.Log("좌");
+        }
+        else if(dir==4)
+        {
+            dir = 0;
+        }
+        else if(dir==-1)
+        {
+            dir = 3;
+        }
     }
 
     public void left() // 모바일용 회전
     {
         if (isPlayer == true && isCube == true && cool >= 0.35)
         {
-            isCube = false;
-            PlayerR.isKinematic = true;
-            StartCoroutine("LeftRot");
-            cool = 0;
+            dir--;
+            PlayerR.gravityScale = 1;
         }
     }
     public void right() // 모바일용 회전
     {
         if (isPlayer == true && isCube == true && cool >= 0.35)
         {
-            isCube = false;
-            PlayerR.isKinematic = true;
-            StartCoroutine("RightRot");
-            cool = 0;
+            dir++;
+            PlayerR.gravityScale = 1;
         }
     }
 
@@ -82,37 +112,37 @@ public class MapRotation : MonoBehaviour
             right();
         }
     }
+    
+    //IEnumerator RightRot() //우회전
+    //{
+    //    PlayerR.gravityScale = 1;
+    //    int countTime = 0;
+    //    while (countTime < 10)
+    //    {
+    //        transform.Rotate(0, 0, -9);
+    //        yield return new WaitForSeconds(0.005f);
+    //        countTime++;
+    //    }
+    //    Player.transform.Rotate(0, 0, 90, Space.Self);
+    //    PlayerR.isKinematic = false;
+    //    isCube = true;
+    //    yield return null;
+    //}
+    //IEnumerator LeftRot() //좌회전
+    //{
+    //    PlayerR.gravityScale = 1;
+    //    int countTime = 0;
+    //    while (countTime < 10)
+    //    {
+    //        transform.Rotate(0, 0, 9);
+    //        yield return new WaitForSeconds(0.005f);
+    //        countTime++;
+    //    }
 
-    IEnumerator RightRot() //우회전
-    {
-        PlayerR.gravityScale = 1;
-        int countTime = 0;
-        while (countTime < 10)
-        {
-            transform.Rotate(0, 0, -9);
-            yield return new WaitForSeconds(0.005f);
-            countTime++;
-        }
-        Player.transform.Rotate(0, 0, 90, Space.Self);
-        PlayerR.isKinematic = false;
-        isCube = true;
-        yield return null;
-    }
-    IEnumerator LeftRot() //좌회전
-    {
-        PlayerR.gravityScale = 1;
-        int countTime = 0;
-        while (countTime < 10)
-        {
-            transform.Rotate(0, 0, 9);
-            yield return new WaitForSeconds(0.005f);
-            countTime++;
-        }
-
-        Player.transform.Rotate(0, 0, 90, Space.Self);
-        PlayerR.isKinematic = false;
-        isCube = true;
-        yield return null;
-    }
+    //    Player.transform.Rotate(0, 0, 90, Space.Self);
+    //    PlayerR.isKinematic = false;
+    //    isCube = true;
+    //    yield return null;
+    //}
 
 }
