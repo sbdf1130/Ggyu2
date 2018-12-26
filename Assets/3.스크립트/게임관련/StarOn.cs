@@ -7,17 +7,17 @@ using UnityEngine;
 
 public class StarOn : MonoBehaviour {
 
-    public Sprite starOn;
-    SpriteRenderer SR;
-
+    Animator ani;
+    public float dest;
     void Start()
     {
-        SR = GetComponent<SpriteRenderer>();
+        ani = GetComponent<Animator>();
     }
 
     // 별구멍 빛나게 하는 메소드
 	public void Shine()
     {
-        SR.sprite = starOn;
+        ani.enabled = true;
+        Destroy(gameObject,dest);
     }
 }
